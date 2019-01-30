@@ -2,6 +2,8 @@
 #include <vector>
 #include <chrono>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
