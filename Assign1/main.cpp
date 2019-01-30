@@ -11,12 +11,13 @@
 using namespace std;
 
 volatile int val = 0;
-int a[1000000];
+int a[2000000];
+int test_count = 100000;
 
 /*
  * Read array in a sequential way
  */
-void seq_read(int a[], int array_size) {
+void seq_read(int a[], int array_size, int loop_count) {
     int loopCount = 10;
     long total_ns = 0;
     long avg_ns = 0;
@@ -39,8 +40,7 @@ void seq_read(int a[], int array_size) {
     val = val+1;
 }
 
-void random_read(int a[], int array_size) {
-    int loopCount = 1;
+void random_read(int a[], int array_size, int loop_count) {
     long total_ns = 0;
     long avg_ns = 0;
     srand(time(NULL));
@@ -62,20 +62,17 @@ void random_read(int a[], int array_size) {
 
     // Record the random read time of an array
     clock_t start = clock();
-    for (int loopIndex = 0; loopIndex < loopCount; loopIndex++) {
+    for (int loopIndex = 0; loopIndex < loop_count; loopIndex++) {
         int idx = 0;
         for (int i = 0; i < array_size; i++) {
             idx = a[idx];
             val += a[idx];
-//            cout << idx << endl;
         }
     }
     clock_t end = clock();
     total_ns += (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
-//    cout << "total_ns: " << total_ns << endl;
-    avg_ns = total_ns / loopCount / array_size;
+    avg_ns = total_ns / loop_count / array_size;
     cout << "avg: " << (avg_ns) << endl;
-    cout << val << endl;
 }
 
 void seq_write(int a[], int array_size, int loop_count) {
@@ -89,6 +86,13 @@ int main(int argc, char * argv[]) {
     int array_size = atoi(argv[1]);
     cout << array_size << ',';
 //    seq_read(a, array_size);
-    random_read(a, array_size);
+
+    int loop_count = test_count / array_size;
+    if (loop_count == 0) {
+        loop_count = 1;
+    }
+    cout << "loop count: " << loop_count << endl;
+
+    random_read(a, array_size, loop_count);
     return 0;
 }
