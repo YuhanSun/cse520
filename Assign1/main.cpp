@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <chrono>
+//#include <chrono>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,14 +14,14 @@ int main(int argc, char * argv[]) {
 //    int testCount = 100000; //how many times for testing, will be averaged by this
 
 //    int loopCount = testCount / array_size; //read the array for loopCount
-    int loopCount = 1000;
+    int loopCount = 10000;
     long total_ns = 0;
     long avg_ns = 0;
     int val = 0;
 
     // sequential
 //    int * a = new int[array_size];
-    int a[10000000];
+    int a[100000];
 //    if (loopCount == 0) {
 //        int access_count = 0;
 //        for (int i = 0; i < array_size; i++) {
