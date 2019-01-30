@@ -18,26 +18,23 @@ int test_count = 100000;
  * Read array in a sequential way
  */
 void seq_read(int a[], int array_size, int loop_count) {
-    int loopCount = 10;
     long total_ns = 0;
     long avg_ns = 0;
-    int val = 0;
+    for (int i = 0; i < array_size; i++) {
+        a[i] = i;
+    }
 
+    int i = 0;
     clock_t start = clock();
-    for (int loopIndex = 0; loopIndex < loopCount; loopIndex++) {
-        for (int i = 0; i < array_size; i++) {
-//                cout << a[i] << endl;
+    for (int loopIndex = 0; loopIndex < loop_count; loopIndex++) {
+        for (i = 0; i < array_size; i++) {
             val += a[i];
         }
     }
     clock_t end = clock();
-//    auto end = chrono::steady_clock::now();
-//    total_ns += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
     total_ns = (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
-    avg_ns = total_ns / loopCount / array_size;
-//    }
-    cout << (avg_ns) << endl;
-    val = val+1;
+    avg_ns = total_ns / loop_count / array_size;
+    cout << (avg_ns) << "," << val << endl;
 }
 
 void random_read(int a[], int array_size, int loop_count) {
@@ -72,7 +69,8 @@ void random_read(int a[], int array_size, int loop_count) {
     clock_t end = clock();
     total_ns += (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
     avg_ns = total_ns / loop_count / array_size;
-    cout << "avg: " << (avg_ns) << endl;
+//    cout << "avg: " << (avg_ns) << endl;
+    cout << (avg_ns) << endl;
 }
 
 void seq_write(int a[], int array_size, int loop_count) {
@@ -85,14 +83,12 @@ void seq_write(int a[], int array_size, int loop_count) {
 int main(int argc, char * argv[]) {
     int array_size = atoi(argv[1]);
     cout << array_size << ',';
-//    seq_read(a, array_size);
 
     int loop_count = test_count / array_size;
     if (loop_count == 0) {
         loop_count = 1;
     }
-    cout << "loop count: " << loop_count << endl;
-
-    random_read(a, array_size, loop_count);
+    seq_read(a, array_size, loop_count);
+//    random_read(a, array_size, loop_count);
     return 0;
 }
