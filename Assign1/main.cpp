@@ -60,9 +60,11 @@ void random_read(int a[], int array_size) {
     for (int i = 0; i < array_size; i++) {
         v[i] = i;
     }
+
+    // Generate the chasing pointer
     random_shuffle(v.begin(), v.end());
     for (int i = 0; i < v.size(); i++) {
-        if (v[i] == i && i + 1 < v.size()) {
+        if (v[i] == i && i + 1 < array_size) {
             int temp = v[i];
             v[i] = v[i+1];
             v[i+1] = temp;
@@ -70,24 +72,23 @@ void random_read(int a[], int array_size) {
         a[i] = v[i];
     }
 
+    // Record the random read time of an array
     clock_t start = clock();
     for (int loopIndex = 0; loopIndex < loopCount; loopIndex++) {
         int idx = 0;
         for (int i = 0; i < array_size; i++) {
-//            val += a[i];
             idx = a[idx];
+            val += a[idx];
 //            cout << idx << endl;
         }
     }
+//    cout << ((double) (end - start)) << endl;
+//    cout << CLOCKS_PER_SEC << endl;
     clock_t end = clock();
     total_ns += (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
-//    auto end = chrono::steady_clock::now();
-//    total_ns += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-
+//    cout << "total_ns: " << total_ns << endl;
     avg_ns = total_ns / loopCount / array_size;
-//    }
     cout << "avg: " << (avg_ns) << endl;
-    val = val+1;
 }
 
 int main(int argc, char * argv[]) {
