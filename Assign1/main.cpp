@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ int main(int argc, char * argv[]) {
 
     // sequential
 //    int * a = new int[array_size];
-    int a[100000];
+    int a[10000000];
 //    if (loopCount == 0) {
 //        int access_count = 0;
 //        for (int i = 0; i < array_size; i++) {
@@ -36,15 +37,18 @@ int main(int argc, char * argv[]) {
 //        avg_ns = total_ns / access_count;
 //    }
 //    else {
-    auto start = chrono::steady_clock::now();
+//    auto start = chrono::steady_clock::now();
+    clock_t start = clock();
     for (int loopIndex = 0; loopIndex < loopCount; loopIndex++) {
             for (int i = 0; i < array_size; i++) {
 //                cout << a[i] << endl;
                 val += a[i];
             }
     }
-    auto end = chrono::steady_clock::now();
-    total_ns += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    clock_t end = clock();
+//    auto end = chrono::steady_clock::now();
+//    total_ns += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    total_ns = (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
     avg_ns = total_ns / loopCount / array_size;
 //    }
     cout << (avg_ns) << endl;
