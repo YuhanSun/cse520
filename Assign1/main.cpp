@@ -63,7 +63,7 @@ void random_read(int a[], int array_size) {
 
     // Generate the chasing pointer
     random_shuffle(v.begin(), v.end());
-    for (int i = 0; i < v.size(); i++) {
+    for (int i = 0; i < array_size; i++) {
         if (v[i] == i && i + 1 < array_size) {
             int temp = v[i];
             v[i] = v[i+1];
