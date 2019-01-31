@@ -34,7 +34,7 @@ void seq_read(int a[], int array_size, int loop_count) {
     clock_t end = clock();
     total_ns = (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
     avg_ns = total_ns / loop_count / array_size;
-    cout << (avg_ns) << "," << val << endl;
+    cout << (avg_ns) << endl;
 }
 
 void random_read(int a[], int array_size, int loop_count) {
@@ -129,16 +129,30 @@ void random_write(int a[], int array_size, int loop_count) {
 }
 
 int main(int argc, char * argv[]) {
-    int array_size = atoi(argv[1]);
+    int op = atoi(argv[1]);
+    int array_size = atoi(argv[2]);
     cout << array_size << ',';
 
     int loop_count = test_count / array_size;
     if (loop_count == 0) {
         loop_count = 1;
     }
-//    seq_read(a, array_size, loop_count);
-//    random_read(a, array_size, loop_count);
-//    seq_write(a, array_size, loop_count);
-    random_write(a, array_size, loop_count);
+    switch (op){
+        case 0:
+            seq_read(a, array_size, loop_count);
+            break;
+        case 1:
+            random_read(a, array_size, loop_count);
+            break;
+        case 2:
+            seq_write(a, array_size, loop_count);
+            break;
+        case 3:
+            random_write(a, array_size, loop_count);
+            break;
+        default:
+            break;
+    }
+
     return 0;
 }
