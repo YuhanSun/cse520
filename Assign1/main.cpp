@@ -69,15 +69,63 @@ void random_read(int a[], int array_size, int loop_count) {
     clock_t end = clock();
     total_ns += (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
     avg_ns = total_ns / loop_count / array_size;
-//    cout << "avg: " << (avg_ns) << endl;
     cout << (avg_ns) << endl;
 }
 
+/**
+ * Sequential write function
+ * @param a
+ * @param array_size
+ * @param loop_count
+ */
 void seq_write(int a[], int array_size, int loop_count) {
+    long total_ns = 0;
+    long avg_ns = 0;
     clock_t start = clock();
     for (int loop_index = 0; loop_index < loop_count; loop_index++) {
-
+        for ( int i = 0; i < array_size; i++) {
+            a[i] = i;
+        }
     }
+    clock_t end = clock();
+    total_ns += (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
+    avg_ns = total_ns / loop_count / array_size;
+    cout << (avg_ns) << endl;
+}
+
+void random_write(int a[], int array_size, int loop_count) {
+    long total_ns = 0;
+    long avg_ns = 0;
+    srand(time(NULL));
+    vector<int> v(array_size);
+    for (int i = 0; i < array_size; i++) {
+        v[i] = i;
+    }
+
+    // Generate the chasing pointer
+    random_shuffle(v.begin(), v.end());
+
+    for (int i = 0; i < array_size; i++) {
+        if (v[i] == i && i + 1 < array_size) {
+            int temp = v[i];
+            v[i] = v[i+1];
+            v[i+1] = temp;
+        }
+    }
+
+    // Record the random read time of an array
+    clock_t start = clock();
+    for (int loopIndex = 0; loopIndex < loop_count; loopIndex++) {
+        for (int i = 0; i < array_size; i++) {
+            int idx = v[i];
+            a[idx] = i;
+            val += a[idx];
+        }
+    }
+    clock_t end = clock();
+    total_ns += (double) (end - start) / CLOCKS_PER_SEC * 1000000000;
+    avg_ns = total_ns / loop_count / array_size;
+    cout << (avg_ns) << endl;
 }
 
 int main(int argc, char * argv[]) {
@@ -88,7 +136,9 @@ int main(int argc, char * argv[]) {
     if (loop_count == 0) {
         loop_count = 1;
     }
-    seq_read(a, array_size, loop_count);
+//    seq_read(a, array_size, loop_count);
 //    random_read(a, array_size, loop_count);
+//    seq_write(a, array_size, loop_count);
+    random_write(a, array_size, loop_count);
     return 0;
 }
