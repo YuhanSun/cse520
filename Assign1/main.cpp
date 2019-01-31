@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-//#include <chrono>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +13,11 @@ volatile int val = 0;
 int a[2000000];
 int test_count = 100000;
 
-/*
+/**
  * Read array in a sequential way
+ * @param a
+ * @param array_size
+ * @param loop_count
  */
 void seq_read(int a[], int array_size, int loop_count) {
     long total_ns = 0;
@@ -37,6 +39,12 @@ void seq_read(int a[], int array_size, int loop_count) {
     cout << (avg_ns) << endl;
 }
 
+/**
+ * Random read
+ * @param a
+ * @param array_size
+ * @param loop_count
+ */
 void random_read(int a[], int array_size, int loop_count) {
     long total_ns = 0;
     long avg_ns = 0;
@@ -93,6 +101,12 @@ void seq_write(int a[], int array_size, int loop_count) {
     cout << (avg_ns) << endl;
 }
 
+/**
+ * Random write function
+ * @param a
+ * @param array_size
+ * @param loop_count
+ */
 void random_write(int a[], int array_size, int loop_count) {
     long total_ns = 0;
     long avg_ns = 0;
