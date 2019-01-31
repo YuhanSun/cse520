@@ -1,4 +1,3 @@
-i = 1
 keyword="system.cpu.numCycles"
 
 types = ['seq_read', 'random_read', 'seq_write', 'random_write']
@@ -6,8 +5,11 @@ test_count = 100000
 
 for type in types:
     wfile = open(type + "_gem5.txt", "w")
+    i = 1
     while i <= 1048576:
-        rfile = open("gem5_{0}_{1}.txt".format(type, i), "r");
+        filename = "gem5_{0}_{1}.txt".format(type, i)
+        print filename
+        rfile = open(filename, "r")
         loop = test_count / i
         if loop == 0:
             loop = 1
@@ -23,4 +25,3 @@ for type in types:
         rfile.close()
         i = i * 2
     wfile.close()
-    break
