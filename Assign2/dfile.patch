@@ -1,0 +1,10 @@
+diff /home/user/Documents/520/Assign2/gem5-master/src/mem/cache/replacement_policies/ReplacementPolicies.py "/home/user/Documents/520/Assign2/gem5-master (2)/src/mem/cache/replacement_policies/ReplacementPolicies.py"
+82c82
+<     hit_priority = Param.Bool(True,
+---
+>     hit_priority = Param.Bool(False,
+diff /home/user/Documents/520/Assign2/gem5-master/src/mem/cache/replacement_policies/SConscript "/home/user/Documents/520/Assign2/gem5-master (2)/src/mem/cache/replacement_policies/SConscript"
+37d36
+< Source('ship_rp.cc')
+Only in /home/user/Documents/520/Assign2/gem5-master/src/mem/cache/replacement_policies/: ship_rp.cc
+Only in /home/user/Documents/520/Assign2/gem5-master/src/mem/cache/replacement_policies/: ship_rp.hh
