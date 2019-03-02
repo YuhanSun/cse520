@@ -3,8 +3,6 @@ script_dir="/home/user/Documents/520/program/cse520/Assign2/script"
 
 cd ${gem5dir}
 
-#echo \"
-
 # LRU 120000 graph
 ./build/X86/gem5.opt --outdir=result/bfs_LRU_120000_256kB configs/example/se.py --cpu-type=AtomicSimpleCPU --caches --l2cache --l1d_size=32kB --l1i_size=32kB --l2_size=256kB --l2_assoc=16 --l2_rpp="LRURP()" -c benchmark/bin/BFS_opt --options=./benchmark/inputs_assign2/BFS_randLocalGraph_J_5_120000
 ./build/X86/gem5.opt --outdir=result/bfs_LRU_120000_1M configs/example/se.py --cpu-type=AtomicSimpleCPU --caches --l2cache --l1d_size=32kB --l1i_size=32kB --l2_size=1MB --l2_assoc=16 --l2_rpp="LRURP()" -c benchmark/bin/BFS_opt --options=./benchmark/inputs_assign2/BFS_randLocalGraph_J_5_120000
